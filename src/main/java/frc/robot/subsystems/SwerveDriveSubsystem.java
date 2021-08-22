@@ -68,7 +68,7 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
                         new WPI_TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_DRIVE_MOTOR),
                         0),
                
-                        new SwerveDriveModule(3,
+                new SwerveDriveModule(3,
                         new WPI_TalonSRX(Constants.DRIVETRAIn_BACK_LEFT_ANGLE_MOTOR),
                         new WPI_TalonFX(Constants.DRIVETRAIN_BACK_LEFT_DRIVE_MOTOR),
                         -167.70),
@@ -158,6 +158,12 @@ public void holonomicDrive(double forward, double strafe, double rotation, boole
     for (double speed : speeds) {
         if (speed > max) {
             max = speed;
+        }
+    }
+
+    if(max > 1){
+        for(int i = 0; i < 4; i++){
+            speeds[i] /= max;
         }
     }
 
