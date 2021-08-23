@@ -41,13 +41,15 @@ public class SwerveDriveModule extends SubsystemBase {
   private double driveWheelRadius = 2.2;
   private boolean angleMotorJam = false;
 
-  public SwerveDriveModule(int moduleNumber, WPI_TalonSRX angleMotor, WPI_TalonFX driveMotor, double zeroOffset) {
+  public SwerveDriveModule(int moduleNumber, WPI_TalonSRX angleMotor, WPI_TalonFX driveMotor, double zeroOffset, boolean driveinvert) {
     this.moduleNumber = moduleNumber;
 
     mAngleMotor = angleMotor;
     mDriveMotor = driveMotor;
 
     mZeroOffset = zeroOffset;
+
+    driveMotor.setInverted(driveinvert);
 
     angleMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     angleMotor.setSensorPhase(true);

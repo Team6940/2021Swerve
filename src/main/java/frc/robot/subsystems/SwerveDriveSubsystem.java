@@ -45,10 +45,10 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
 
     if (Robot.PRACTICE_BOT) {
         mSwerveModules = new SwerveDriveModule[] {
-                new SwerveDriveModule(0, new WPI_TalonSRX(3), new WPI_TalonFX(4), 255.5859),
-                new SwerveDriveModule(1, new WPI_TalonSRX(6), new WPI_TalonFX(5), 338.906),
-                new SwerveDriveModule(2, new WPI_TalonSRX(2), new WPI_TalonFX(1), 13.359),
-                new SwerveDriveModule(3, new WPI_TalonSRX(7), new WPI_TalonFX(8), 15.82),
+                new SwerveDriveModule(0, new WPI_TalonSRX(3), new WPI_TalonFX(4), 255.5859, true),
+                new SwerveDriveModule(1, new WPI_TalonSRX(6), new WPI_TalonFX(5), 338.906, false),
+                new SwerveDriveModule(2, new WPI_TalonSRX(2), new WPI_TalonFX(1), 13.359, false),
+                new SwerveDriveModule(3, new WPI_TalonSRX(7), new WPI_TalonFX(8), 15.82, true),
         };
 
         mSwerveModules[0].setDriveInverted(true);
@@ -58,22 +58,28 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
                 new SwerveDriveModule(0,
                         new WPI_TalonSRX(Constants.DRIVETRAIN_FRONT_LEFT_ANGLE_MOTOR),
                         new WPI_TalonFX(Constants.DRIVETRAIN_FRONT_LEFT_DRIVE_MOTOR),
-                        0),
+                        0,
+                        false),
                 new SwerveDriveModule(1,
                         new WPI_TalonSRX(Constants.DRIVETRAIN_FRONT_RIGHT_ANGLE_MOTOR),
                         new WPI_TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_DRIVE_MOTOR),
-                        164.09),
+                        164.09,
+                        false),
                 new SwerveDriveModule(2,
                         new WPI_TalonSRX(Constants.DRIVETRAIN_BACK_RIGHT_ANGLE_MOTOR),
                         new WPI_TalonFX(Constants.DRIVETRAIN_BACK_RIGHT_DRIVE_MOTOR),
-                        0),
+                        0,
+                        false),
                
                 new SwerveDriveModule(3,
                         new WPI_TalonSRX(Constants.DRIVETRAIn_BACK_LEFT_ANGLE_MOTOR),
                         new WPI_TalonFX(Constants.DRIVETRAIN_BACK_LEFT_DRIVE_MOTOR),
-                        -167.70),
+                        -167.70,
+                        false),
         };
 
+        // Perhaps there is something wrong with the code below.
+        // Need to be tested
         mSwerveModules[0].setDriveInverted(true);
         mSwerveModules[3].setDriveInverted(true);
     }
@@ -92,6 +98,7 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
 
 public double getGyroAngle() {
     double angle = mNavX.getAngle() - getAdjustmentAngle();
+    //double angle = mNavX.getYaw() - getAdjustmentAngle(); //Another method to getAngle.
     angle %= 360;
     if (angle < 0) angle += 360;
 
