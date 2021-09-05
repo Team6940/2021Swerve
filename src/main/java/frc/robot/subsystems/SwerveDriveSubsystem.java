@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SwerveDriveSubsystem extends HolonomicDrivetrain {
   /** Creates a new SwerveDriveSubsystem. */
@@ -33,7 +34,7 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
   */
   private SwerveDriveModule[] mSwerveModules;
 
-  private AHRS mNavX = new AHRS(SPI.Port.kMXP, (byte) 200);
+  private AHRS mNavX = new AHRS(SPI.Port.kMXP);
 
   private final SwerveDriveOdometry m_odometry =
   new SwerveDriveOdometry(Constants.kDriveKinematics, mNavX.getRotation2d());
@@ -42,6 +43,7 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
   public SwerveDriveSubsystem() {
     super(WIDTH, LENGTH);
     zeroGyro();
+    //mNavX.reset();
 
     if (Robot.PRACTICE_BOT) {
         mSwerveModules = new SwerveDriveModule[] {
@@ -51,8 +53,8 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
                 new SwerveDriveModule(3, new WPI_TalonSRX(7), new WPI_TalonFX(8), 15.82, true),
         };
 
-        mSwerveModules[0].setDriveInverted(true);
-        mSwerveModules[3].setDriveInverted(true);
+        //mSwerveModules[0].setDriveInverted(true);
+        //mSwerveModules[3].setDriveInverted(true);
     } else {
         mSwerveModules = new SwerveDriveModule[] {
                 new SwerveDriveModule(0,
@@ -63,7 +65,7 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
                 new SwerveDriveModule(1,
                         new WPI_TalonSRX(Constants.DRIVETRAIN_FRONT_RIGHT_ANGLE_MOTOR),
                         new WPI_TalonFX(Constants.DRIVETRAIN_FRONT_RIGHT_DRIVE_MOTOR),
-                        164.09,
+                        -154.248,
                         false),
                 new SwerveDriveModule(2,
                         new WPI_TalonSRX(Constants.DRIVETRAIN_BACK_RIGHT_ANGLE_MOTOR),
@@ -74,14 +76,14 @@ public class SwerveDriveSubsystem extends HolonomicDrivetrain {
                 new SwerveDriveModule(3,
                         new WPI_TalonSRX(Constants.DRIVETRAIn_BACK_LEFT_ANGLE_MOTOR),
                         new WPI_TalonFX(Constants.DRIVETRAIN_BACK_LEFT_DRIVE_MOTOR),
-                        -167.70,
+                        -154.248,
                         false),
         };
 
         // Perhaps there is something wrong with the code below.
         // Need to be tested
-        mSwerveModules[0].setDriveInverted(true);
-        mSwerveModules[3].setDriveInverted(true);
+        //mSwerveModules[0].setDriveInverted(true);
+        //mSwerveModules[3].setDriveInverted(true);
     }
 
     for (SwerveDriveModule module : mSwerveModules) {
@@ -131,10 +133,10 @@ public void holonomicDrive(double forward, double strafe, double rotation, boole
 
     strafe *= -1;
     //rotation *= -1;
-    
 
     if (fieldOriented) {
         double angleRad = Math.toRadians(getGyroAngle());
+        SmartDashboard.putNumber("getGyroAngle", getGyroAngle());
         double temp = forward * Math.cos(angleRad) +
                 strafe * Math.sin(angleRad);
         strafe = -forward * Math.sin(angleRad) + strafe * Math.cos(angleRad);

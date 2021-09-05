@@ -49,7 +49,7 @@ public class HolonomicDriveCommand extends CommandBase {
 		SmartDashboard.putNumber("Strafe", strafe);
 		SmartDashboard.putNumber("Rotation", rotation);
 
-		mDrivetrain.holonomicDrive(forward, strafe, rotation * 0.4);
+		mDrivetrain.holonomicDrive(forward, strafe, rotation * 0.5);
   }
 
   // Called once the command ends or is interrupted.

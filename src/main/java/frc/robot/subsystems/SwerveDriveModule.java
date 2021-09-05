@@ -252,14 +252,14 @@ public class SwerveDriveModule extends SubsystemBase {
   //    		return;
   //    	}
 
-      double targetVelocity_UnitsPer100ms = speed * 2000.0 * 2048.0 / 600.0;
-      if (driveInverted) speed = -speed;
+      double targetVelocity_UnitsPer100ms = speed * 4000.0 * 2048.0 / 600.0;
+      //if (driveInverted) speed = -speed;
 
-      //if (driveInverted) targetVelocity_UnitsPer100ms = -targetVelocity_UnitsPer100ms;
+      if (driveInverted) targetVelocity_UnitsPer100ms = -targetVelocity_UnitsPer100ms;
 
-      mDriveMotor.set(ControlMode.PercentOutput, speed);
+      //mDriveMotor.set(ControlMode.PercentOutput, speed);
 
-      //mDriveMotor.set(TalonFXControlMode.Velocity, targetVelocity_UnitsPer100ms);
+      mDriveMotor.set(TalonFXControlMode.Velocity, targetVelocity_UnitsPer100ms);
   }
 
   public void zeroDistance() {
